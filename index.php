@@ -99,7 +99,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
 </div><!-- form-group -->
 <div class="form-group">
   <input type="password" class="form-control" placeholder="Contraseña" id="pass" name="pass">
-  <a href="" class="tx-info tx-12 d-block mg-t-10">Recuperar Contraseña?</a>
+  <a href="" class="tx-info tx-12 d-block mg-t-10">Informacion sobre Nosotros</a>
 </div><!-- form-group --> 
 
 <input type="hidden" name="enviar" class="form-control" value="si">
