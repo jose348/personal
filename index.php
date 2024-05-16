@@ -90,7 +90,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
         }
         ?>
 <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal">[</span> Certificados <span class="tx-normal">]</span></div>
-<div class="tx-center mg-b-30">Certificaciones.Net commit</div>
+<div class="tx-center mg-b-30">Certificaciones.Net</div>
 
 
 
