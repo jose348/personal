@@ -15,7 +15,7 @@
               <span class="square-10 bg-success"></span>
             </a>
 
-            <input type="hidden" id="usu_idx" value="<?php echo $_SESSION["usu_id"]; ?>"> <!-- podemos utilizae el id para traer mas datos, como referencia el ID -->
+            <input type="hidden" id="usu_idx" value="<?php echo $_SESSION["usu_id"]?>">
 
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">

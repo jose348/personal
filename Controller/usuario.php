@@ -144,4 +144,60 @@ switch ($_GET["op"]) {                    //pasamos la variable
         break;
         /*******************************************CASO 4**********************************************/
         /*******************************************CASO 4**********************************************/
-}
+
+
+
+
+        /*******************************************CASO 5**********************************************/
+        /*******************************************CASO 5**********************************************/
+            /* mostra los usuarios que contengan el id de ingres o con el que se logean */
+        case "mostrar":
+            $datos=$usuario->get_usuario_por_id($_POST["usu_id"]);
+            if(is_array($datos)==true and count($datos)<>0){
+                foreach($datos as $row){
+                    $output["usu_id"]=$row["usu_id"];
+                    $output["usu_nom"]=$row["usu_nom"];
+                    $output["usu_apep"]=$row["usu_apep"];
+                    $output["usu_apem"]=$row["usu_apem"];
+                    $output["usu_correo"]=$row["usu_correo"];
+                    $output["usu_pas"]=$row["usu_pas"];
+                    $output["usu_sex"]=$row["usu_sex"];
+                    $output["usu_fech"]=$row["usu_fech"];
+                    $output["usu_estado"]=$row["usu_estado"];
+                    $output["usu_tel"]=$row["usu_tel"];
+                    
+                }
+         
+                echo json_encode($output);
+            }
+
+            break;
+
+
+        /*******************************************CASO 5**********************************************/
+        /*******************************************CASO 5**********************************************/
+        
+
+
+
+
+        /*******************************************CASO 6**********************************************/
+        /*******************************************CASO 6**********************************************//*******************************************CASO 5**********************************************/
+        /* actualizar mis datos de quien ingreso al sistema, actualizando el perfil */
+        case "Update_perfil":
+            $usuario->update_usuario_perfil(
+                $_POST["usu_id"],
+                $_POST["usu_nom"],
+                $_POST["usu_apep"],
+                $_POST["usu_apem"],
+                $_POST["usu_pass"],
+                $_POST["usu_sex"],
+                $_POST["usu_tel"]
+            );
+            
+            break;
+        
+        /*******************************************CASO 6**********************************************//*******************************************CASO 5**********************************************/
+        /*******************************************CASO 6**********************************************/
+
+    }

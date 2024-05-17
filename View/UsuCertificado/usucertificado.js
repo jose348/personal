@@ -11,7 +11,7 @@ const ctx = canvas.getContext('2d');
 /* Inicializamos la imagen */
 const image = new Image();
 /* Ruta de la Imagen */
-image.src = '../../public/certificado.png';
+image.src = '../../Public/certificado.png';
 /* SCRIPT QUE ME PERMITE OPTENER LOS DATOS QUE ESTEN ENVIANDO POR PARAMETROS EN LA URL POR EJE EN EST CASO POR curd_id*/
 /* SCRIPT QUE ME PERMITE OPTENER LOS DATOS QUE ESTEN ENVIANDO POR PARAMETROS EN LA URL POR EJE EN EST CASO POR curd_id*/
 

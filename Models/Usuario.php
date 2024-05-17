@@ -135,7 +135,6 @@ class Usuario extends Conectar
         // para poder llamar la funcion utilizamos parametros $usu_id
             $conectar = parent::conexion(); // traemos la clase conexion 
             parent::set_names();           // linea par excepcion de las ñ
-    
             ## ahora digitamos la sentencia que de los datos que queresmo seleccionar
             ## en este caso es union de tablas 
             $sql = "SELECT                    
@@ -164,5 +163,49 @@ class Usuario extends Conectar
             $sql->execute();               //lo ejecutamos
             $resultado = $sql->fetchAll();   //lo guardamos en una variable
             return $resultado;              //retornamos los resultados
+    }
+
+
+    /* AHORA TRABAJAREMOS CON EL ID DEL USUARIOS PARA TRAER DATOS DE  USUARIOS */
+    public function get_usuario_por_id($usu_id){
+        $conectar =parent::conexion();
+        parent::set_names();
+        $sql="SELECT * FROM  tm_usuarios WHERE usu_estado=1 AND usu_id=?";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1,$usu_id);
+        $sql->execute();
+        $resultado = $sql->fetchAll();
+        return $resultado;
+
+    }
+
+
+    /* ahroa actualzimos mis datos perfil */
+    public function update_usuario_perfil($usu_id,$usu_nom,$usu_apep,$usu_apem,$usu_pass,$usu_sex,$usu_tel){// siempre pasamos los datos a actualizar
+         $conetar=parent::conexion();  
+         parent:: set_names();
+         $sql="UPDATE tm_usuarios
+                SET usu_nom=?,
+                    usu_apep=?,
+                    usu_apem=?,
+                    usu_pas=?,
+                    usu_sex=?,
+                    usu_tel=?
+                    
+                WHERE   
+                    usu_id=? ";     
+         $sql=$conetar->prepare($sql);
+         $sql->bindValue(1,$usu_nom);
+         $sql->bindValue(2,$usu_apep);
+         $sql->bindValue(3,$usu_apem);
+         $sql->bindValue(4,$usu_pass);
+         $sql->bindValue(5,$usu_sex);
+         $sql->bindValue(6,$usu_tel);
+         
+         $sql->bindValue(7,$usu_id);
+
+         $sql->execute();
+         $resultado=$sql->fetchAll();    
+        return $resultado;
     }
 }

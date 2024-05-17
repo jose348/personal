@@ -20,3 +20,6 @@
 <script src = "../../Public/datatables/buttons.html5.min.js"></script>
 <script src = "../../Public/datatables/buttons.colVis.min.js"></script>
 <script src = "../../Public/datatables/jszip.min.js"></script>
+
+<script src="../../Public/lib/select2/js/select2.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
