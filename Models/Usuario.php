@@ -31,6 +31,7 @@ class Usuario extends Conectar
                     $_SESSION["usu_nom"] = $resultado["usu_nom"];
                     $_SESSION["usu_apep"] = $resultado["usu_apep"];
                     $_SESSION["usu_correo"] = $resultado["usu_correo"];
+                    $_SESSION["rol_id"] = $resultado["usu_rol"];
                     header("Location:" . Conectar::ruta() . "view/UsuHome"); //ahora lo redirecciono al Home porque aca pude ingresar
                 } else {
                     //el usuario y la contraseña vienen vacias 

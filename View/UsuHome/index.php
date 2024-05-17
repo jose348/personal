@@ -65,7 +65,7 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
         <div class="br-pagebody">
           <div class="br-section-wrapper">
             <h6 class="tx-gray-800 tx-uppercase tx-bold tx-14 mg-b-10">TOP ULTIMOS CURSOS</h6>
-            <p class="mg-b-25 mg-lg-b-50">Aqui podras visualizar los 10 cursos certificados</p>
+    
 
             <div class="table-wrapper">
               <table id="cursos_data" class="table display responsive nowrap">
