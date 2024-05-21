@@ -1,10 +1,45 @@
 var usu_id = $('#usu_idx').val();
 
-/* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
-/* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
-/* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
+function init() {
+    $("#cursos_form").on("submit", function(e) {
+        guardaryeditar(e);
+    });
+}
+
+function guardaryeditar(e) {
+    console.log("test");
+    e.preventDefault();
+    var formData = new FormData($("#cursos_form")[0]);
+    console.log(formData);
+    $.ajax({
+        url: "../../Controller/curso.php?op=guardaryeditar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            console.log(data);
+            $('#cursos_data').DataTable().ajax.reload(); //para recargar mi tabla
+            $('#modalmantenimiento').modal('hide'); //para limpiar mi modal
+            Swal.fire({
+                title: 'Correcto',
+                text: 'Se Registro Correctamente',
+                icon: 'success',
+                confirmButtonText: 'AceptAar'
+            })
+        }
+    });
+}
+
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
+/* interactuamos con mi modal y mi boton guardaryeditarde mi mnt curso */
 
 $(document).ready(function() {
+
 
     /* para su utilizacion de mi combo select en una ventana modal */
     /* para su utilizacion de mi combo select en una ventana modal */
@@ -13,17 +48,6 @@ $(document).ready(function() {
         dropdownParent: $('#modalmantenimiento')
     });
 
-    /* esto es para llenar el combo con informacion que viene de mi Controller/Categoria.php */
-    $.post("../../Controller/categoria.php?op=combo", function(data) {
-        $('#cat_id').html(data);
-    });
-
-
-
-    /* esto es para llenar el combo con informacion que viene de mi Controller/instructor.php */
-    $.post("../../Controller/instructor.php?op=combo", function(data) {
-        $('#inst_id').html(data);
-    });
 
 
     $('#inst_id').select2({
@@ -35,7 +59,9 @@ $(document).ready(function() {
 
 
 
-
+    /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
+    /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
+    /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
     //todo estas lineas es para la interaccion con mi tabla y bd
     $('#cursos_data').DataTable({ //llamamos el nombre de la tabla
 
@@ -65,7 +91,7 @@ $(document).ready(function() {
         "bDestroy": true,
         "responsive": true,
         "bInfo": true,
-        "iDisplayLength": 15, //filas a mostrar
+        "iDisplayLength": 10, //filas a mostrar
         "order": [
             [0, "desc"]
         ],
@@ -93,10 +119,10 @@ $(document).ready(function() {
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
+
     });
 
 });
-
 /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
 /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
 /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
@@ -105,8 +131,14 @@ $(document).ready(function() {
 /* AHORA FUNCION PARA EDITAR */
 /* AHORA FUNCION PARA EDITAR */
 /* AHORA FUNCION PARA EDITAR */
+/* cuando le demos editar nos llama al modal con la informacion cargada */
 function editar(cur_id) {
 
+    $.post("../../Controller/curso.php?op=mostrar", { cur_id: cur_id }, function(data) { //editando mi funcion cuando clickeamo en el boton editar de mi tabla
+
+    });
+    $('#lbltitulo').html('Editar Registro'); //este para cambiarle el titulo al modal que clickeo en editar
+    $('#modalmantenimiento').modal('show'); //para traer mi modal
 }
 /* AHORA FUNCION PARA EDITAR */
 /* AHORA FUNCION PARA EDITAR */
@@ -127,13 +159,30 @@ function eliminar(cur_id) {
 
 
 
-/* AHORA FUNCION PARA ELIMINAR */
-/* AHORA FUNCION PARA ELIMINAR */
-/* AHORA FUNCION PARA ELIMINAR */
+
+
 /* LLAMNADO A MI MODAL  DE BOTTON NUEVO */
 function nuevo() {
+    $('#lbltitulo').html('Nuevo Registro'); //esto solo aparecera cuando llame a nuevo registro como titulo
+    $('#cursos_form')[0].reset(); //limpiando cada uno de los datos
+    combo_categoria();
+    combo_instructor();
     $('#modalmantenimiento').modal('show');
 }
-/* AHORA FUNCION PARA ELIMINAR */
-/* AHORA FUNCION PARA ELIMINAR */
-/* AHORA FUNCION PARA ELIMINAR */
+
+function combo_categoria() {
+    /* esto es para llenar el combo con informacion que viene de mi Controller/Categoria.php */
+    $.post("../../Controller/categoria.php?op=combo", function(data) {
+        $('#cat_id').html(data);
+    });
+}
+
+function combo_instructor() {
+    /* esto es para llenar el combo con informacion que viene de mi Controller/instructor.php */
+    $.post("../../Controller/instructor.php?op=combo", function(data) {
+        $('#inst_id').html(data);
+    });
+}
+
+
+init(); //terminamos aqui

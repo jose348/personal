@@ -27,7 +27,7 @@ switch($_GET["op"]){
                 $output["cur_nom"]=$row["cur_nom"];
                 $output["cur_fechini"]=$row["cur_fechini"];
                 $output["cur_fechfin"]=$row["cur_fechfin"];
-                $output["cur_desc"]=$row["cur_desc"];
+                $output["cur_descr"]=$row["cur_descr"];
 
             }
             json_encode($output);
@@ -49,8 +49,8 @@ switch($_GET["op"]){
         $data =Array();
         foreach($datos as $row){
             $sub_array=array();
-            $sub_array[]=$row["cat_id"];
-            $sub_array[]=$row["inst_id"];
+            $sub_array[]=$row["cat_nom"];
+            $sub_array[]=$row["inst_nom"]." ".$row["inst_apep"]." ".$row["inst_apem"];
             $sub_array[]=$row["cur_nom"];
             $sub_array[]=$row["cur_fechini"];
             $sub_array[]=$row["cur_fechfin"];

@@ -48,9 +48,9 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
 
         <!-- TABLA PARA IMPLEMENTACION CON JS  -->
         <!-- TABLA PARA IMPLEMENTACION CON JS  -->
-        <div class="br-pagebody ">
+        <div class="br-pagebody row">
           <div class="br-section-wrapper">
-
+  <!-- #region  --> 
 
             <button class="col-sm-3 btn btn-outline-primary" id="add_button" onclick="nuevo()">
               <i class="fa fa-plus mg-r-10"></i>Nuevo Registro
@@ -63,11 +63,11 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
               <table id="cursos_data" class="table display responsive nowrap">
                 <thead>
                   <tr>
-                    <th class="wd-15p">ID Categ</th>
-                    <th class="wd-15p">ID Instr</th>
+                    <th class="wd-15p">Categ</th>
+                    <th class="wd-15p">Instr</th>
                     <th class="wd-15p">Nombre</th>
-                    <th class="wd-15p">Fecha Inicio</th>
-                    <th class="wd-20p">Fecha Fin</th>
+                    <th class="wd-15p">F.Inicio</th>
+                    <th class="wd-20p">F.Fin</th>
                     <th class="wd-15p">Descripcion</th>
                     <th class="wd-10p"></th>
                     <th class="wd-10p"></th>
