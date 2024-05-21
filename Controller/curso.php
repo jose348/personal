@@ -18,7 +18,7 @@ switch($_GET["op"]){
 
         /* creando json segun el ID.... mostrar en lisata */
     case "mostrar":
-        $datos=$curso->gte_curso_id("cur_id");
+        $datos=$curso->get_curso_id($_POST["cur_id"]);
         if(is_array($datos)==true and count($datos) <> 0 ){
             foreach($datos as $row){
                 $output["cur_id"]=$row["cur_id"];
@@ -30,14 +30,14 @@ switch($_GET["op"]){
                 $output["cur_descr"]=$row["cur_descr"];
 
             }
-            json_encode($output);
+           echo json_encode($output);
         }
             break;
             
 
     /* ELIMINAR SEGUN ID */
     case "eliminar":
-        $curso->delete_curso($cur_id);
+        $curso->delete_curso($_POST["cur_id"]);
             break;
     
 

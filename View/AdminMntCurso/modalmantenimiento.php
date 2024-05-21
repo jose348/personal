@@ -32,7 +32,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-control-label">Descripcion: <span class="tx-danger">*</span></label>
-                            <input class="form-control tx-uppercase" id="cur_descr" type="text" name="cur_descr" required />
+                            <textarea class="form-control tx-uppercase" id="cur_descr" type="text" name="cur_descr" required></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12">

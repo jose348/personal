@@ -28,7 +28,7 @@ function guardaryeditar(e) {
                 title: 'Correcto',
                 text: 'Se Registro Correctamente',
                 icon: 'success',
-                confirmButtonText: 'AceptAar'
+                confirmButtonText: 'Aceptar'
             })
         }
     });
@@ -57,6 +57,10 @@ $(document).ready(function() {
     /* para su utilizacion de mi combo select en una ventana modal */
     /* para su utilizacion de mi combo select en una ventana modal */
 
+
+    combo_categoria();
+
+    combo_instructor();
 
 
     /* ESTO ES MI TABLA DE MI MANTENIMIENTO CUSRO */
@@ -133,8 +137,15 @@ $(document).ready(function() {
 /* AHORA FUNCION PARA EDITAR */
 /* cuando le demos editar nos llama al modal con la informacion cargada */
 function editar(cur_id) {
-
-    $.post("../../Controller/curso.php?op=mostrar", { cur_id: cur_id }, function(data) { //editando mi funcion cuando clickeamo en el boton editar de mi tabla
+    $.post("../../Controller/curso.php?op=mostrar", { cur_id: cur_id }, function(data) {
+        data = JSON.parse(data);
+        $('#cur_id').val(data.cur_id);
+        $('#cat_id').val(data.cat_id).trigger('change');
+        $('#cur_nom').val(data.cur_nom);
+        $('#cur_descr').val(data.cur_descr);
+        $('#cur_fechini').val(data.cur_fechini);
+        $('#cur_fechfin').val(data.cur_fechfin);
+        $('#inst_id').val(data.inst_id).trigger('change');
 
     });
     $('#lbltitulo').html('Editar Registro'); //este para cambiarle el titulo al modal que clickeo en editar
@@ -150,8 +161,27 @@ function editar(cur_id) {
 /* AHORA FUNCION PARA ELIMINAR */
 /* AHORA FUNCION PARA ELIMINAR */
 /* AHORA FUNCION PARA ELIMINAR */
-function eliminar(cur_id) {
-
+function eliminar(cur_id) { //tener encuenta que el cur_id viene de la sentencia eliminar
+    swal.fire({
+        title: "Elimianr",
+        text: "Deseas Eliminar Registro ?",
+        icon: "error",
+        confirmButtonText: "Si",
+        showCancelButton: true,
+        cancelButtonText: "No",
+    }).then((result) => { // preguntamos si el boton presionado es si
+        if (result.value) {
+            $.post("../../Controller/curso.php?op=eliminar", { cur_id, cur_id }, function(data) { // eliminamos el registro 
+                $('#cursos_data').DataTable().ajax.reload();
+                swal.fire({
+                    title: 'Correcto',
+                    text: 'Se Elimino Correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                })
+            });
+        }
+    });
 }
 /* AHORA FUNCION PARA ELIMINAR */
 /* AHORA FUNCION PARA ELIMINAR */

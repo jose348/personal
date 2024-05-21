@@ -32,15 +32,15 @@
                     cur_fechfin=?,
                     cur_descr=?
                     WHERE 
-                    cur_id";
+                    cur_id=?";
             $sql = $conx->prepare($sql);
-            $sql->bindValue("1", $cat_id);
-            $sql->bindValue("2", $inst_id);
-            $sql->bindValue("3", $cur_nom);
-            $sql->bindValue("4", $cur_fechini);
-            $sql->bindValue("5", $cur_fechfin);
-            $sql->bindValue("6", $cur_descr);
-            $sql->bindValue("7", $cur_id);
+            $sql->bindValue(1, $cat_id);
+            $sql->bindValue(2, $inst_id);
+            $sql->bindValue(3, $cur_nom);
+            $sql->bindValue(4, $cur_fechini);
+            $sql->bindValue(5, $cur_fechfin);
+            $sql->bindValue(6, $cur_descr);
+            $sql->bindValue(7, $cur_id);
             $sql->execute();
             return $resultado = $sql->fetchALL();
         }
@@ -83,15 +83,14 @@
         }
 
         /* SELECCIONAMOS LOS CURSOS POR ID */
-        public function gte_curso_id($cur_id)
-        {
-            $conn = parent::conexion();
+        public function get_curso_id($cur_id){
+            $conectar= parent::conexion();
             parent::set_names();
-            $sql = "SELECT * FROM tm_curso WHERE cur_estado=1 AND cur_id=?";
-            $sql = $conn->prepare($sql);
-            $sql->bindvalue(1, $cur_id);
+            $sql="SELECT * FROM tm_curso WHERE cur_estado= 1 AND cur_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $cur_id);
             $sql->execute();
-            return  $resultado = $sql->fetchAll();
+            return $resultado=$sql->fetchAll();
         }
     }
 
