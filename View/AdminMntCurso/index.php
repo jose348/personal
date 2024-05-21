@@ -48,7 +48,7 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
 
         <!-- TABLA PARA IMPLEMENTACION CON JS  -->
         <!-- TABLA PARA IMPLEMENTACION CON JS  -->
-        <div class="br-pagebody row">
+        <div class="br-pagebody ">
           <div class="br-section-wrapper">
   <!-- #region  --> 
 
