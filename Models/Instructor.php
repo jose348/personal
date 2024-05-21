@@ -82,7 +82,7 @@ public function get_instructor(){
 public function get_instructor_id($inst_id){
     $conn=parent::conexion();
     parent::set_names();
-    $sql="SELECT * FROM tm_instructor WHERE inst_id=?";
+    $sql="SELECT * FROM tm_instructor WHERE inst_id=";
     $sql=$conn->prepare($sql);  
     $sql->bindValue(1 , $inst_id);
     $sql->execute();

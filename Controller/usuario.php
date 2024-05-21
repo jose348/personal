@@ -12,7 +12,14 @@ $usuario = new Usuario();                 //Iniciamos la Clase
 switch ($_GET["op"]) {                    //pasamos la variable 
 
 
-
+    case "guardaryeditar":
+        if(empty($_POST["usu_id"])){
+            $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"]);
+            
+        }else{
+            $usuario->update_usuario($_POST["usu_id"],$_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"]);
+        }
+        break;
 
 
         /*******************************************CASO 1**********************************************/
@@ -165,6 +172,7 @@ switch ($_GET["op"]) {                    //pasamos la variable
                     $output["usu_fech"]=$row["usu_fech"];
                     $output["usu_estado"]=$row["usu_estado"];
                     $output["usu_tel"]=$row["usu_tel"];
+                    $output["usu_rol"]=$row["usu_rol"];
                     
                 }
          
@@ -199,5 +207,44 @@ switch ($_GET["op"]) {                    //pasamos la variable
         
         /*******************************************CASO 6**********************************************//*******************************************CASO 5**********************************************/
         /*******************************************CASO 6**********************************************/
+
+
+        case "eliminar":
+            $usuario->delete_usuario($_POST["usu_id"]);
+                break;
+        
+    
+                /* LISTAMOS SIN EL ID  SOLO LISTAMOS TODO */
+    
+        case "listar":
+    
+            $datos=$usuario->get_usuario();
+            $data =Array();
+            foreach($datos as $row){
+                $sub_array=array();
+                $sub_array[]=$row["usu_nom"];
+                $sub_array[]=$row["usu_apep"];
+                $sub_array[]=$row["usu_apem"];
+                $sub_array[]=$row["usu_correo"];
+                if($row["usu_rol"]==1){
+                    $sub_array[]="Usuario";
+                }else{
+
+                $sub_array[]="Administrador";
+                }
+                $sub_array[]=$row["usu_tel"];
+                $sub_array[]='<button type="button" onClick="editar(' . $row["usu_id"] . ');"  id="' . $row["usu_id"] . '" class="btn btn-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
+                $sub_array[]='<button type="button" onClick="eliminar(' . $row["usu_id"] . ');"  id="' . $row["usu_id"] . '" class="btn btn-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
+                $data[]=$sub_array;            
+            }
+            $results = array(
+                "sEcho" => 1,
+                "iTotalRecords" => count($data),
+                "iTotalDisplayRecords" => count($data),
+                "aaData" => $data
+            );
+    echo json_encode($results);
+                break; 
+
 
     }

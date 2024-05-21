@@ -209,4 +209,80 @@ class Usuario extends Conectar
          $resultado=$sql->fetchAll();    
         return $resultado;
     }
+
+    
+      
+        public function insert_usuario($usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO tm_usuarios (usu_nom, usu_apep,usu_apem,usu_correo,usu_pas,usu_sex,usu_fech,usu_estado,usu_tel,usu_rol) 
+                        VALUES (?,?,?,?,?,?,now(),'1',?,?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_nom);
+            $sql->bindValue(2, $usu_apep);
+            $sql->bindValue(3, $usu_apem);
+            $sql->bindValue(4, $usu_correo);
+            $sql->bindValue(5, $usu_pas);
+            $sql->bindValue(6, $usu_sex);
+            $sql->bindValue(7, $usu_tel);
+            $sql->bindValue(8, $usu_rol);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+        
+
+        public function update_usuario($usu_id,$usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol){
+            $conx = parent::conexion();
+            $sql = "UPDATE tm_usuarios
+                    SET 
+                    usu_nom=?,
+                    usu_apep=?,
+                    usu_apem=?,
+                    usu_correo=?,
+                    usu_pas=?,
+                    usu_sex=?,
+                    usu_tel=?,
+                    usu_rol=?
+                    WHERE 
+                    usu_id=?";
+            $sql = $conx->prepare($sql);
+            $sql->bindValue(1, $usu_nom);
+            $sql->bindValue(2, $usu_apep);
+            $sql->bindValue(3, $usu_apem);
+            $sql->bindValue(4, $usu_correo);
+            $sql->bindValue(5, $usu_pas);
+            $sql->bindValue(6, $usu_sex);
+            $sql->bindValue(7, $usu_tel);
+            $sql->bindValue(8, $usu_rol);
+            $sql->bindValue(9, $usu_id);
+            $sql->execute();
+            return $resultado = $sql->fetchALL();
+        }
+ 
+
+        public function delete_usuario($usu_id)
+        {
+            $cnx = parent::conexion();
+            parent::set_names();
+            $sql = "UPDATE tm_usuarios
+              SET 
+              usu_estado=0
+              WHERE 
+              usu_id=?"; 
+            $sql = $cnx->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado = $sql->fetchAll();
+        }
+  
+        
+        /* LISTAR TODAS LAS CATEGORIAS */
+        public function get_usuario(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuarios WHERE usu_estado = 1";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 }
