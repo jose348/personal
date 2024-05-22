@@ -247,4 +247,29 @@ switch ($_GET["op"]) {                    //pasamos la variable
                 break; 
 
 
+
+                /* listar a todos lo usuarios pertenecientes a curso */
+                case "listar_cursos_usuario":
+                    $datos = $usuario->get_curso_usuario_x_id($_POST["cur_id"]); //guardamos en la variable datos la instancia de Models/Usuario.php y//le pasamos lo que viene por $_POST
+                       $data=Array();
+                       foreach ($datos as $row) {
+                         $sub_array= array();
+                         $sub_array[] = $row["cur_nom"];
+                         $sub_array[] = $row["usu_nom"]." ".$row["usu_apep"]." ".$row["usu_apem"];
+                         $sub_array[] = $row["cur_fechini"];
+                         $sub_array[] = $row["cur_fechfin"];
+                         $sub_array[] = $row["inst_nom"]." ".$row["inst_apep"];
+                         $sub_array[] = '<button type="button" onClick="certificado('.$row["curd_id"].');"  id="'.$row["curd_id"].'" class="btn btn-outline-info btn-icon"><div><i class="fa fa-id-card-o"></i></div></button>';
+                         $sub_array[]='<button type="button" onClick="eliminar(' . $row["curd_id"] . ');"  id="' . $row["curd_id"] . '" class="btn btn-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
+                         $data[]=$sub_array;
+                       }
+            
+                       $results = array(
+                        "sEcho"=>1,
+                        "iTotalRecords"=>count($data),
+                        "iTotalDisplayRecords"=>count($data),
+                        "aaData"=>$data);
+                    echo json_encode($results);
+            
+                    break;
     }

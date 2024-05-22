@@ -166,6 +166,38 @@ class Usuario extends Conectar
             return $resultado;              //retornamos los resultados
     }
 
+    public function get_curso_usuario_x_id($cur_id){
+        $conectar = parent::conexion(); // traemos la clase conexion 
+        parent::set_names();           // linea par excepcion de las ñ
+        ## ahora digitamos la sentencia que de los datos que queresmo seleccionar
+        ## en este caso es union de tablas 
+        $sql = "SELECT                    
+            td_curso_usuario.curd_id,      
+            tm_curso.cur_id,
+            tm_usuarios.usu_id,
+            tm_usuarios.usu_nom,
+            tm_usuarios.usu_apep,
+            tm_usuarios.usu_apem,
+            tm_curso.cur_nom,
+            tm_curso.cur_descr,
+            tm_instructor.inst_id,
+            tm_instructor.inst_nom,
+            tm_instructor.inst_apep,
+            tm_instructor.inst_apem,
+            tm_curso.cur_fechini,
+            tm_curso.cur_fechfin
+            FROM td_curso_usuario INNER JOIN tm_curso ON td_curso_usuario.cur_id=tm_curso.cur_id
+                                  INNER JOIN tm_usuarios ON td_curso_usuario.usu_id=tm_usuarios.usu_id
+                                  INNER JOIN tm_instructor ON tm_curso.inst_id=tm_instructor.inst_id
+            WHERE tm_curso.cur_id=?";
+          
+
+        $sql = $conectar->prepare($sql); //preparamos la sentencia
+        $sql->bindValue(1, $cur_id);    //obtenemos el parametro 
+        $sql->execute();               //lo ejecutamos
+        $resultado = $sql->fetchAll();   //lo guardamos en una variable
+        return $resultado;              //retornamos los resultados
+    }
 
     /* AHORA TRABAJAREMOS CON EL ID DEL USUARIOS PARA TRAER DATOS DE  USUARIOS */
     public function get_usuario_por_id($usu_id){
@@ -216,7 +248,7 @@ class Usuario extends Conectar
             $conectar= parent::conexion();
             parent::set_names();
             $sql="INSERT INTO tm_usuarios (usu_nom, usu_apep,usu_apem,usu_correo,usu_pas,usu_sex,usu_fech,usu_estado,usu_tel,usu_rol) 
-                        VALUES (?,?,?,?,?,?,now(),'1',?,?)";
+                        VALUES (null,?,?,?,?,?,?,now(),'1',?,?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_nom);
             $sql->bindValue(2, $usu_apep);

@@ -68,5 +68,22 @@ switch($_GET["op"]){
 echo json_encode($results);
             break; 
            
+
+            //este combo me ayudar a mi combo de manteniemiento detalle- certificado a llenar de informacion 
+            case "combo":
+                $datos=$curso->get_curso();
+                if(is_array($datos)==true and count($datos)>0){
+                    $html= " <option label='Seleccione'></option>";
+                    foreach($datos as $row){
+                        $html.= "<option value='".$row['cur_id']."'>".$row['cur_nom']."</option>";
+                    }
+                    echo $html;
+                }
+                break;
+
+                case "eliminar_curso_usuario":
+                    $curso->delete_curso_usuario($_POST["curd_id"]);
+                    break;
+
 }
 ?>

@@ -67,8 +67,9 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
                     <th class="wd-15p">Ape.Paterno</th>
                     <th class="wd-15p">Ape.Materno</th>
                     <th class="wd-15p">Correo</th>
-                    <th class="wd-15p">Telefono</th>
+                    
                     <th class="wd-15p">Rol</th>
+                    <th class="wd-15p">Telefono</th>
                     <th class="wd-10p"></th>
                     <th class="wd-10p"></th>
                     </tr>
