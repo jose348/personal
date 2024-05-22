@@ -78,7 +78,7 @@ public function get_instructor(){
 
 
 
-
+/*TODO seleccionar por inst_id */
 public function get_instructor_id($inst_id){
     $conn=parent::conexion();
     parent::set_names();

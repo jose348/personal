@@ -28,7 +28,8 @@
         <strong class="d-block d-sm-inline-block-force text text-primary">MANTENIMIENTO DETALLE CERTIFICADO</strong>
 
 
-      <div class="br-pagebody">
+
+        <div class="br-pagebody">
         <div class="br-section-wrapper">
             
 

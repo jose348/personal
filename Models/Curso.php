@@ -93,6 +93,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+          /* TODO ELIMINAR DE MI MANTENIMIENTO DETALLE CERTIFICADO */
         public function delete_curso_usuario($curd_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -106,5 +107,19 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
     }
+
+    /* TODO en mi modal mantenimientodetallecertificado */
+    public function insert_curso_usuario($cur_id,$usu_id){
+        $conectar= parent::conexion();
+        parent::set_names();
+        $sql="INSERT INTO td_curso_usuario (cur_id,usu_id, curd_fechacrea,curd_estado) VALUES (?,?,now(),1);";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $cur_id);
+        $sql->bindValue(2, $usu_id);
+        $sql->execute();
+        return $resultado=$sql->fetchAll();
+
+    }
+  
     }
     ?>  

@@ -80,10 +80,20 @@ echo json_encode($results);
                     echo $html;
                 }
                 break;
-
+                
+                /* TODO ELIMINAR PARA EL MANTENIMIENTO DETALLE CERTIFICADO */
                 case "eliminar_curso_usuario":
                     $curso->delete_curso_usuario($_POST["curd_id"]);
                     break;
 
+                    /* TODO COMO SELECCIONAMOS EL EL CHECKBOX LO ENVIAMOS COMO ARRAY Y LO NECESITAMOS RECORRE */
+                case "insert_curso_usuario":
+                        /* Array de usuario separado por comas */
+                        $datos = explode(',', $_POST['usu_id']);
+                        foreach ( $datos as $row ) {
+                            /* Registrar tantos usuarios vengan de la vista */
+                            $curso->insert_curso_usuario($_POST["cur_id"],$row);//viene de mi Controller/cusrso.php
+                        }
+                break;
 }
 ?>

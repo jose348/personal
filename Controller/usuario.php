@@ -272,4 +272,31 @@ switch ($_GET["op"]) {                    //pasamos la variable
                     echo json_encode($results);
             
                     break;
-    }
+
+
+
+                    /*TODO LISTA PARA MANTENIMIENTO USUARIO QUE ESTA EN MI MODAL DE MANTENIMIENTO DETALLE CERTIFCADO */
+                    case "listar_usuario_mant_detalle_certificado":
+    
+                        $datos=$usuario->get_usuario_modal($_POST["cur_id"]);
+                        $data =Array();
+                        foreach($datos as $row){
+                            $sub_array=array();
+                            /*TODO agredamos en un sub arrays el checkbox para la tabla que esta en el modal de mntdetallecurso */
+                            $sub_array[] = "<input type='checkbox' name='detallecheck[]' value='". $row["usu_id"] ."'>";
+                            $sub_array[]=$row["usu_nom"];
+                            $sub_array[]=$row["usu_apep"];
+                            $sub_array[]=$row["usu_apem"];
+                            $sub_array[]=$row["usu_correo"];
+                            $sub_array[]=$row["usu_tel"];
+                             $data[]=$sub_array;            
+                        }
+                        $results = array(
+                            "sEcho" => 1,
+                            "iTotalRecords" => count($data),
+                            "iTotalDisplayRecords" => count($data),
+                            "aaData" => $data
+                        );
+                echo json_encode($results);
+                            break; 
+            }

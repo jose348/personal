@@ -1,7 +1,7 @@
 <?php
 class Usuario extends Conectar
 {
-    /* LOGIN PARA ACCESO DE USUARIO */
+    /*TODO LOGIN PARA ACCESO DE USUARIO */
     public function login()
     {
         $Conectar = parent::conexion(); //guardamos en la variable $Conectar luego con parent
@@ -43,7 +43,7 @@ class Usuario extends Conectar
     }
 
 
-    /* LISTA CURSOS QUE TIENE UN USUARIO */
+    /*TODO LISTA CURSOS QUE TIENE UN USUARIO */
     public function get_cursos_por_usuario($usu_id)
     { // para poder llamar la funcion utilizamos parametros $usu_id
         $conectar = parent::conexion(); // traemos la conexion 
@@ -80,7 +80,7 @@ class Usuario extends Conectar
     }
 
 
-       /* MOSTRAR LOS DATOS DEL CURSO CURSO POR ID DE TD */
+       /*TODO MOSTRAR LOS DATOS DEL CURSO CURSO POR ID DE TD */
        public function get_cursos_por_id_detalle($curd_id)
        { // para poder llamar la funcion utilizamos parametros $usu_id
            $conectar = parent::conexion(); // traemos la clase conexion 
@@ -118,7 +118,7 @@ class Usuario extends Conectar
 
 
 
-       /* contar la cntidad de curso que ah llevado un usuario */
+       /*TODO contar la cntidad de curso que ah llevado un usuario */
        public function  get_total_cursos_por_usuario($usu_id){//traemos cantidad de cursos con el id
         $conectar=parent::conexion();//nos conectamos a la clase conexio guardandola en una variable
         parent::set_names(); // ignoramos las ñ
@@ -131,7 +131,7 @@ class Usuario extends Conectar
 
 
 
-    /* LIMITANDO LA CANTIDAD DE FILAS QUE QUIERO QUE SE MUETREN */
+    /*TODO LIMITANDO LA CANTIDAD DE FILAS QUE QUIERO QUE SE MUETREN */
     public function get_curso_por_usuarios_top10($usu_id){
         // para poder llamar la funcion utilizamos parametros $usu_id
             $conectar = parent::conexion(); // traemos la clase conexion 
@@ -157,6 +157,7 @@ class Usuario extends Conectar
                                       INNER JOIN tm_usuarios ON td_curso_usuario.usu_id=tm_usuarios.usu_id
                                       INNER JOIN tm_instructor ON tm_curso.inst_id=tm_instructor.inst_id
                 WHERE td_curso_usuario.usu_id=?
+                AND td_curso_usuario.curd_estado=1
                 LIMIT 10";
     
             $sql = $conectar->prepare($sql); //preparamos la sentencia
@@ -167,7 +168,7 @@ class Usuario extends Conectar
     }
 
     public function get_curso_usuario_x_id($cur_id){
-        $conectar = parent::conexion(); // traemos la clase conexion 
+        $conectar = parent::conexion(); //TODO traemos la clase conexion 
         parent::set_names();           // linea par excepcion de las ñ
         ## ahora digitamos la sentencia que de los datos que queresmo seleccionar
         ## en este caso es union de tablas 
@@ -189,7 +190,8 @@ class Usuario extends Conectar
             FROM td_curso_usuario INNER JOIN tm_curso ON td_curso_usuario.cur_id=tm_curso.cur_id
                                   INNER JOIN tm_usuarios ON td_curso_usuario.usu_id=tm_usuarios.usu_id
                                   INNER JOIN tm_instructor ON tm_curso.inst_id=tm_instructor.inst_id
-            WHERE tm_curso.cur_id=?";
+            WHERE tm_curso.cur_id=?
+            AND td_curso_usuario.curd_estado=1";
           
 
         $sql = $conectar->prepare($sql); //preparamos la sentencia
@@ -199,7 +201,7 @@ class Usuario extends Conectar
         return $resultado;              //retornamos los resultados
     }
 
-    /* AHORA TRABAJAREMOS CON EL ID DEL USUARIOS PARA TRAER DATOS DE  USUARIOS */
+    /*TODO AHORA TRABAJAREMOS CON EL ID DEL USUARIOS PARA TRAER DATOS DE  USUARIOS */
     public function get_usuario_por_id($usu_id){
         $conectar =parent::conexion();
         parent::set_names();
@@ -213,7 +215,7 @@ class Usuario extends Conectar
     }
 
 
-    /* ahroa actualzimos mis datos perfil */
+    /*TODO ahroa actualzimos mis datos perfil */
     public function update_usuario_perfil($usu_id,$usu_nom,$usu_apep,$usu_apem,$usu_pass,$usu_sex,$usu_tel){// siempre pasamos los datos a actualizar
          $conetar=parent::conexion();  
          parent:: set_names();
@@ -308,12 +310,26 @@ class Usuario extends Conectar
         }
   
         
-        /* LISTAR TODAS LAS CATEGORIAS */
+        /*TODO LISTAR TODOS LOS USUARIOS */
         public function get_usuario(){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT * FROM tm_usuarios WHERE usu_estado = 1";
             $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        /*TODO LISTAR USUARIO QUE NO PERTENEZCAN A ESE CURSO DE MI COMBO, YA 
+        QUE EN MI MNTDETALLECERTIFICADO LOS TENGO POR COMBO, EN ESTE CASO EN MI CUR_ID 
+        TRAEMOS LOS USUARIOS QUE NO ESTEN AHI  */
+        public function get_usuario_modal($cur_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuarios WHERE usu_estado=1
+            AND usu_id NOT IN (SELECT usu_id FROM td_curso_usuario WHERE cur_id=? AND curd_estado=1)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$cur_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
