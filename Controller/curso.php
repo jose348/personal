@@ -50,13 +50,16 @@ switch($_GET["op"]){
         foreach($datos as $row){
             $sub_array=array();
             $sub_array[]=$row["cat_nom"];
-            $sub_array[]=$row["inst_nom"]." ".$row["inst_apep"]." ".$row["inst_apem"];
-            $sub_array[]=$row["cur_nom"];
+            //$sub_array[]=$row["inst_nom"]." ".$row["inst_apep"]." ".$row["inst_apem"]; TODO en un inicio fue asi pero luego le agregamos
+            $sub_array[]='<a href="'.$row["cur_img"].'" target="_blank">'.strtoupper($row["cur_nom"]).'</a>'; //le agregamo la etiqueta <a>ruta </a>
+           
             $sub_array[]=$row["cur_fechini"];
             $sub_array[]=$row["cur_fechfin"];
+            $sub_array[]=$row["inst_nom"] ." ". $row["inst_apep"] ." ". $row["inst_apem"];
             $sub_array[]=$row["cur_descr"];
             $sub_array[]='<button type="button" onClick="editar(' . $row["cur_id"] . ');"  id="' . $row["cur_id"] . '" class="btn btn-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
             $sub_array[]='<button type="button" onClick="eliminar(' . $row["cur_id"] . ');"  id="' . $row["cur_id"] . '" class="btn btn-danger btn-icon"><div><i class="fa fa-trash"></i></div></button>';
+            $sub_array[] ='<button type="button" onClick="imagen('.$row["cur_id"].');"  id="'.$row["cur_id"].'" class="btn btn-outline-success btn-icon"><div><i class="fa fa-file"></i></div></button>';  
             $data[]=$sub_array;            
         }
         $results = array(
@@ -95,5 +98,11 @@ echo json_encode($results);
                             $curso->insert_curso_usuario($_POST["cur_id"],$row);//viene de mi Controller/cusrso.php
                         }
                 break;
+
+
+                
+                case "update_imagen_curso":
+                    $curso->update_imagen_curso($_POST["curx_idx"],$_POST["cur_img"]);
+                    break;
 }
 ?>

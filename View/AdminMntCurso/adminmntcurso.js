@@ -9,6 +9,12 @@ function init() {
     });
 }
 
+function init() {
+    $("#detalle_form").on("submit", function(e) {
+        guardaryeditarimg(e);
+    });
+}
+
 function guardaryeditar(e) {
     console.log("test");
     e.preventDefault();
@@ -188,7 +194,10 @@ function eliminar(cur_id) { //tener encuenta que el cur_id viene de la sentencia
 /* AHORA FUNCION PARA ELIMINAR */
 
 
-
+function imagen(cur_id) {
+    $('#curx_idx').val(cur_id);
+    $('#modalfile').modal('show');
+}
 
 
 /* LLAMNADO A MI MODAL  DE BOTTON NUEVO */
@@ -214,5 +223,26 @@ function combo_instructor() {
     });
 }
 
+function guardaryeditarimg(e) {
+    e.preventDefault();
+    var formData = new FormData($("#detalle_form")[0]);
+    $.ajax({
+        url: "../../Controller/curso.php?op=update_imagen_curso",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos) {
+            $('#cursos_data').DataTable().ajax.reload();
+            Swal.fire({
+                title: 'Correcto!',
+                text: 'Se Actualizo Correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            })
+            $("#modalfile").modal('hide');
 
+        }
+    });
+}
 init(); //terminamos aqui

@@ -86,7 +86,7 @@ switch ($_GET["op"]) {                    //pasamos la variable
                 $output["cur_descr"] = $row["cur_descr"];
                 $output["cur_fechini"] = $row["cur_fechini"];
                 $output["cur_fechfin"] = $row["cur_fechfin"];
-
+                $output["cur_img"] = $row["cur_img"];
                 $output["inst_id"] = $row["inst_id"];
                 $output["inst_nom"] = $row["inst_nom"];
                 $output["inst_apep"] = $row["inst_apep"];

@@ -17,7 +17,7 @@
 
       
       <canvas id="canvas" height="600px" width="850px" class="img-fluid" alt="Responsive image"></canvas>
-
+  
          
       <h5></h5>
       <p class="tx-16 mg-b-30 text-justify" id="cur_descr"></p>

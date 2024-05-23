@@ -6,8 +6,8 @@
         {
             $conx = parent::conexion();
             parent::set_names();
-            $sql = "INSERT INTO tm_curso(cat_id, inst_id, cur_nom, cur_fechini, cur_fechfin, cur_fechcrea, cur_estado, cur_descr)
-                            VALUES(?,?,?,?,?,now(),'1',?)";
+            $sql = "INSERT INTO tm_curso(cat_id, inst_id, cur_nom, cur_fechini, cur_fechfin, cur_fechcrea, cur_estado, cur_descr, cur_img)
+                            VALUES(?,?,?,?,?,now(),'1',?,'../../public/1.png')";
             $sql = $conx->prepare($sql);
             $sql->bindValue(1, $cat_id);
             $sql->bindValue(2, $inst_id);
@@ -66,12 +66,19 @@
             $conn = parent::conexion();
             parent::set_names();
             $sql = "SELECT
-            tm_curso.cur_id, tm_curso.cur_nom,
-            tm_curso.cur_descr,tm_curso.cur_fechini,
-            tm_curso.cur_fechfin,tm_curso.cat_id,
-            tm_categoria.cat_nom,tm_curso.inst_id,
-            tm_instructor.inst_nom,tm_instructor.inst_apep,
-            tm_instructor.inst_apem,tm_instructor.inst_correo,
+            tm_curso.cur_id,
+            tm_curso.cur_nom,
+            tm_curso.cur_descr,
+            tm_curso.cur_fechini,
+            tm_curso.cur_fechfin,
+            tm_curso.cat_id,
+            tm_curso.cur_img,
+            tm_categoria.cat_nom,
+            tm_curso.inst_id,
+            tm_instructor.inst_nom,
+            tm_instructor.inst_apep,
+            tm_instructor.inst_apem,
+            tm_instructor.inst_correo,
             tm_instructor.inst_tel
             FROM tm_curso
             INNER JOIN tm_categoria ON tm_curso.cat_id=tm_categoria.cat_id
@@ -119,6 +126,41 @@
         $sql->execute();
         return $resultado=$sql->fetchAll();
 
+    }
+
+    
+    public function update_imagen_curso($cur_id,$cur_img){
+        $conectar= parent::conexion();
+        parent::set_names();
+
+        require_once("Curso.php");
+        $curx = new Curso();
+        $cur_img = '';
+        if ($_FILES["cur_img"]["name"]!=''){
+            $cur_img = $curx->upload_file();
+        }
+
+        $sql="UPDATE tm_curso
+            SET
+                cur_img = ?
+            WHERE
+                cur_id = ?";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $cur_img);
+        $sql->bindValue(2, $cur_id);
+        $sql->execute();
+        return $resultado=$sql->fetchAll();
+    }
+
+    /*TODO actualizar imagen para guardarlos en mantcurso */
+    public function upload_file(){
+        if(isset($_FILES["cur_img"])){//guardar aleatorio mis imagenes
+            $extension = explode('.', $_FILES['cur_img']['name']);
+            $new_name = rand() . '.' . $extension[1];
+            $destination = '../Public/' . $new_name;
+            move_uploaded_file($_FILES['cur_img']['tmp_name'], $destination);
+            return "../../Public/".$new_name;
+        }
     }
   
     }
