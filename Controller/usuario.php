@@ -14,10 +14,10 @@ switch ($_GET["op"]) {                    //pasamos la variable
 
     case "guardaryeditar":
         if(empty($_POST["usu_id"])){
-            $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"]);
+            $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"],$_POST["usu_dni"]);
             
         }else{
-            $usuario->update_usuario($_POST["usu_id"],$_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"]);
+            $usuario->update_usuario($_POST["usu_id"],$_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"],$_POST["usu_dni"]);
         }
         break;
 
@@ -43,7 +43,7 @@ switch ($_GET["op"]) {                    //pasamos la variable
 
             /*  TAMBIEN PODEMOS PONER UN BOTON PARA PODER VISUALIZAR MI CERTIFICADO */
             /*  TAMBIEN PODEMOS PONER UN BOTON PARA PODER VISUALIZAR MI CERTIFICADO */
-            $sub_array[] = '<button type="button" onClick="certificado(' . $row["curd_id"] . ');"  id="' . $row["curd_id"] . '" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-id-card-o"></i></div></button>';
+            $sub_array[] = '<button type="button" onClick="certificado('.$row["curd_id"].');"id="'.$row["curd_id"].'" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-id-card-o"></i></div></button>';
             $data[] = $sub_array;
         }
 
@@ -173,7 +173,7 @@ switch ($_GET["op"]) {                    //pasamos la variable
                     $output["usu_estado"]=$row["usu_estado"];
                     $output["usu_tel"]=$row["usu_tel"];
                     $output["usu_rol"]=$row["usu_rol"];
-                    
+                    $output["usu_dni"]=$row["usu_dni"];
                 }
          
                 echo json_encode($output);
@@ -181,6 +181,29 @@ switch ($_GET["op"]) {                    //pasamos la variable
 
             break;
 
+
+            case "consulta_dni":
+                $datos=$usuario->get_usuario_x_dni($_POST["usu_dni"]);
+                if(is_array($datos)==true and count($datos)<>0){
+                    foreach($datos as $row){
+                        $output["usu_id"]=$row["usu_id"];
+                        $output["usu_nom"]=$row["usu_nom"];
+                        $output["usu_apep"]=$row["usu_apep"];
+                        $output["usu_apem"]=$row["usu_apem"];
+                        $output["usu_correo"]=$row["usu_correo"];
+                        $output["usu_pas"]=$row["usu_pas"];
+                        $output["usu_sex"]=$row["usu_sex"];
+                        $output["usu_fech"]=$row["usu_fech"];
+                        $output["usu_estado"]=$row["usu_estado"];
+                        $output["usu_tel"]=$row["usu_tel"];
+                        $output["usu_rol"]=$row["usu_rol"];
+                        $output["usu_dni"]=$row["usu_dni"];
+                    }
+             
+                    echo json_encode($output);
+                }
+    
+                break;
 
         /*******************************************CASO 5**********************************************/
         /*******************************************CASO 5**********************************************/

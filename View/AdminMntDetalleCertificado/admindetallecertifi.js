@@ -1,5 +1,7 @@
 var usu_id = $('#usu_idx').val();
 
+
+
 $(document).ready(function() {
     $('#cur_id').select2();
 
@@ -201,18 +203,17 @@ usu_id que viene de la tabla de usuarios del modal de mantenimiento detalle cert
 y lo utilizamos para poder registra en la tabla principa de este mantenimiento */
 
 function registrardetalle() {
-    /*TODO con esto guardamos los id de los chekeados */
-    table = $('#usuario_data').DataTable(); //mi modal
-    var usu_id = []; //para poder guardar la infomacion
+    table = $('#usuario_data').DataTable();
+    var usu_id = [];
 
-    table.rows().every(function(rowIdx, tableLoop, rowLoop) { //funcion de datatable
-        cell1 = table.cell({ row: rowIdx, column: 0 }).node(); //recorremos la celdas
-        if ($('input', cell1).prop("checked") == true) { //preguntamos si esta checkeados
-            id = $('input', cell1).val(); //que gurde en id el checkeado
+    table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+        cell1 = table.cell({ row: rowIdx, column: 0 }).node();
+        if ($('input', cell1).prop("checked") == true) {
+            id = $('input', cell1).val();
             usu_id.push([id]);
         }
     });
-    //validamos si es el id chekeado
+
     if (usu_id == 0) {
         Swal.fire({
             title: 'Error!',
@@ -222,8 +223,7 @@ function registrardetalle() {
         })
     } else {
         /* Creando formulario */
-        const formData = new FormData($("#form_detalle")[0]); //mi modal
-        //seleccionamos los datos que necesitamos 
+        const formData = new FormData($("#form_detalle")[0]);
         formData.append('cur_id', cur_id);
         formData.append('usu_id', usu_id);
 
@@ -233,7 +233,23 @@ function registrardetalle() {
             data: formData,
             contentType: false,
             processData: false,
+            success: function(data) {
+                data = JSON.parse(data);
+
+                data.forEach(e => {
+                    e.forEach(i => {
+                        console.log(i['curd_id']);
+                        $.ajax({
+                            type: "POST",
+                            url: "../../Controller/curso.php?op=generar_qr",
+                            data: { curd_id: i['curd_id'] },
+                            dataType: "json"
+                        });
+                    });
+                });
+            }
         });
+
         /* Recargar datatable de los usuarios del curso */
         $('#detalle_data').DataTable().ajax.reload();
 

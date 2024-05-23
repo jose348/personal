@@ -40,7 +40,7 @@
 
                     <div class="modal-footer">
                         <!-- para guardar en el boton guardar dentro de mi modal, aqui le agregamos el name y un value -->
-                        <button  name="action" onclick="registrardetalle()" value="add" class="btn btn-outline-success tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fa fa-check"></i>Registrar</button>
+                        <button  name="action" onclick="registrardetalle()"  class="btn btn-outline-success tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fa fa-check"></i>Registrar</button>
                         <button type="reset" class="btn btn-outline-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" aria-label="Close" aria-hidden="true" data-dismiss="modal"><i class="fa fa-close"></i> Cancelar</button>
                     </div>
               

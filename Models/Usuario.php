@@ -58,6 +58,7 @@ class Usuario extends Conectar
             tm_usuarios.usu_nom,
             tm_usuarios.usu_apep,
             tm_usuarios.usu_apem,
+            tm_usuarios.usu_dni,
             tm_curso.cur_nom,
             tm_curso.cur_descr,
             tm_instructor.inst_id,
@@ -146,6 +147,7 @@ class Usuario extends Conectar
                 tm_usuarios.usu_nom,
                 tm_usuarios.usu_apep,
                 tm_usuarios.usu_apem,
+                tm_usuarios.usu_dni,
                 tm_curso.cur_nom,
                 tm_curso.cur_descr,
                 tm_instructor.inst_id,
@@ -180,6 +182,7 @@ class Usuario extends Conectar
             tm_usuarios.usu_nom,
             tm_usuarios.usu_apep,
             tm_usuarios.usu_apem,
+            tm_usuarios.usu_dni,
             tm_curso.cur_nom,
             tm_curso.cur_descr,
             tm_instructor.inst_id,
@@ -215,6 +218,16 @@ class Usuario extends Conectar
 
     }
 
+ /*TODO: Mostrar los datos del usuario segun el DNI */
+        public function get_usuario_x_dni($usu_dni){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuarios WHERE usu_estado=1 AND usu_dni=?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_dni);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
     /*TODO ahroa actualzimos mis datos perfil */
     public function update_usuario_perfil($usu_id,$usu_nom,$usu_apep,$usu_apem,$usu_pass,$usu_sex,$usu_tel){// siempre pasamos los datos a actualizar
@@ -247,11 +260,11 @@ class Usuario extends Conectar
 
     
       
-        public function insert_usuario($usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol){
+        public function insert_usuario($usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol,$usu_dni){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tm_usuarios (usu_nom, usu_apep,usu_apem,usu_correo,usu_pas,usu_sex,usu_fech,usu_estado,usu_tel,usu_rol) 
-                        VALUES (null,?,?,?,?,?,?,now(),'1',?,?)";
+            $sql="INSERT INTO tm_usuarios (usu_nom, usu_apep,usu_apem,usu_correo,usu_pas,usu_sex,usu_fech,usu_estado,usu_tel,usu_rol,usu_dni) 
+                        VALUES (?,?,?,?,?,?,now(),'1',?,?,?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_nom);
             $sql->bindValue(2, $usu_apep);
@@ -261,12 +274,13 @@ class Usuario extends Conectar
             $sql->bindValue(6, $usu_sex);
             $sql->bindValue(7, $usu_tel);
             $sql->bindValue(8, $usu_rol);
+            $sql->bindValue(9, $usu_dni);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
         
 
-        public function update_usuario($usu_id,$usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol){
+        public function update_usuario($usu_id,$usu_nom, $usu_apep,$usu_apem,$usu_correo,$usu_pas,$usu_sex,$usu_tel,$usu_rol,$usu_dni){
             $conx = parent::conexion();
             $sql = "UPDATE tm_usuarios
                     SET 
@@ -277,7 +291,8 @@ class Usuario extends Conectar
                     usu_pas=?,
                     usu_sex=?,
                     usu_tel=?,
-                    usu_rol=?
+                    usu_rol=?,
+                    usu_dni=?
                     WHERE 
                     usu_id=?";
             $sql = $conx->prepare($sql);
@@ -289,7 +304,8 @@ class Usuario extends Conectar
             $sql->bindValue(6, $usu_sex);
             $sql->bindValue(7, $usu_tel);
             $sql->bindValue(8, $usu_rol);
-            $sql->bindValue(9, $usu_id);
+            $sql->bindValue(9, $usu_dni);
+            $sql->bindValue(10, $usu_id);
             $sql->execute();
             return $resultado = $sql->fetchALL();
         }

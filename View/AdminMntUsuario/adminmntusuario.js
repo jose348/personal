@@ -101,6 +101,7 @@ function editar(usu_id) {
         $('#usu_sex').val(data.usu_sex).trigger('change');
         $('#usu_rol').val(data.usu_rol).trigger('change');
         $('#usu_tel').val(data.usu_tel);
+        $('#usu_dni').val(data.usu_dni);
     });
     $('#lbltitulo').html('Editar Registro');
     $('#modalmantenimiento').modal('show');

@@ -21,6 +21,7 @@
          
       <h5></h5>
       <p class="tx-16 mg-b-30 text-justify" id="cur_descr"></p>
+      <div id="qrcode"></div>
 
         <div class="d-flex justify-content-center">
           <div class="input-group wd-xs-300"> 

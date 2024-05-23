@@ -18,8 +18,11 @@ class Conectar{
             /**
              * CADEMA DE CONEXION 
              */
+            /*TODO: Cadena de Conexion QA*/
             $conectar =$this->dbh=new PDO("pgsql:host=$host; dbname=$dbname",$username,$password);
-            //$conectar=pg_connect("host=$host dbname=$dbname user=$username password=$password");
+
+            /*TODO: Cadena de Conexion Produccion*/
+				//$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=andercode_diplomas","diploma1","@ndercode");
             
             return $conectar;
         }catch(Exception $e){
@@ -37,8 +40,14 @@ class Conectar{
  //** ruta principal del Proyecto */
 
  public static function ruta(){
+
+     //QA
     return "http://localhost/personal/";
- }
+
+            //TODO Produccion
+            //return "http://diplomas.anderson-bastidas.com/"; 
+
+}
 
 }
     

@@ -141,18 +141,19 @@ $(document).ready(function() {
             ctx.font = '18px Arial';
             ctx.fillText(data.inst_nom + ' ' + data.inst_apep + ' ' + data.inst_apem, x, 420);
             ctx.font = '15px Arial';
-            ctx.fillText('Instructor', x, 450);
+            ctx.fillText('Instructor ES', x, 450);
 
             ctx.font = '15px Arial';
             ctx.fillText('Fecha de Inicio : ' + data.cur_fechini + ' / ' + 'Fecha de Finalización : ' + data.cur_fechfin + '', x, 490);
 
-            /* Ruta de la Imagen */
-            imageqr.src = "../../public/qr/" + curd_id + ".png";
-            /* Dimensionamos y seleccionamos imagen */
+            /*TODO Ruta de la Imagen */
+            imageqr.src = "../../Public/qr/" + curd_id + ".png";
+            /*TODO Dimensionamos y seleccionamos imagen */
             imageqr.onload = function() {
+                //TODO PARA COLOCARLO DENTRO DE LA DIPLOMA EL QR
                 ctx.drawImage(imageqr, 400, 500, 100, 100);
             }
-            $('#cur_descri').html(data.cur_descri);
+            $('#cur_descr').html(data.cur_descr);
 
         };
 
