@@ -52,11 +52,11 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
           <div class="br-section-wrapper">
   <!-- #region  --> 
 
-            <button class="col-sm-3 btn btn-outline-primary" id="add_button" onclick="nuevo()">
+            <button class="col-sm-3 btn btn-primary" id="add_button" onclick="nuevo()">
               <i class="fa fa-plus mg-r-10"></i>Nuevo Registro
             </button>
 
-
+            <button class="btn btn-success"  id="btnplantilla"><i class="fa fa-gear mg-r-10"></i> Subir Plantilla</button>
 
             <div class="table-wrapper">
               <br>
@@ -89,10 +89,13 @@ if (isset($_SESSION["usu_id"])) { //para validar si cerre session y no abrir el 
     <!-- ########## END: MAIN PANEL ########## -->
     <?php
     require_once("modalmantenimiento.php");
+    require_once("modalplantilla.php");
     require_once("../html/MainJs.php");
 
     ?>
     <script type="text/javascript" src="adminmntusuario.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script><!-- script para traer mis excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script><!-- script para traer mis excel -->
   </body>
 
   </html>

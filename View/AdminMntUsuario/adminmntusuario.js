@@ -139,5 +139,68 @@ function nuevo() {
     $('#usuario_form')[0].reset();
     $('#modalmantenimiento').modal('show');
 }
+/* abriendo mi modalplantilla */
+$(document).on("click", "#btnplantilla", function() {
+    $('#modalplantilla').modal('show');
+});
 
+var ExcelToJSON = function() { // inicializamos la libreria que agregamos
+    this.parseExcel = function(file) { //solicitamos el archivo 
+        var reader = new FileReader(); //declaramos lo que leera el archivo
+
+        reader.onload = function(e) { //reload
+            var data = e.target.result; //detecta la info
+            var workbook = XLSX.read(data, { //lee el archivo xls tipo binario
+                type: 'binary'
+            });
+            //TODO: Recorrido a todas las pestañas
+            workbook.SheetNames.forEach(function(sheetName) {
+                // Here is your object
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                UserList = JSON.parse(json_object);
+
+                console.log(UserList)
+                for (i = 0; i < UserList.length; i++) {
+
+                    var columns = Object.values(UserList[i])
+
+                    $.post("../../Controller/usuario.php?op=guardar_desde_excel", {
+                        usu_nom: columns[0],
+                        usu_apep: columns[1],
+                        usu_apem: columns[2],
+                        usu_correo: columns[3],
+                        usu_pas: columns[4],
+                        usu_sex: columns[5],
+                        usu_tel: columns[6],
+                        usu_rol: columns[7],
+                        usu_dni: columns[8]
+                    }, function(data) {
+                        console.log(data);
+                    });
+
+                }
+                /* TODO:Despues de subir la informacion limpiar inputfile */
+                document.getElementById("upload").value = null;
+
+                /* TODO: Actualizar Datatable JS */
+                $('#usuario_data').DataTable().ajax.reload();
+                $('#modalplantilla').modal('hide');
+            })
+        };
+        reader.onerror = function(ex) {
+            console.log(ex);
+        };
+
+        reader.readAsBinaryString(file);
+    };
+};
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    var xl2json = new ExcelToJSON();
+    xl2json.parseExcel(files[0]);
+}
+
+document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 init();

@@ -24,6 +24,8 @@ switch ($_GET["op"]) {                    //pasamos la variable
 
         /*******************************************CASO 1**********************************************/
         /*******************************************CASO 1**********************************************/
+        
+        
         /* MICRO SERVICIOS PARA PODER MOSTRAR EL LISTADO DE CURSOS */
     case "listar_cursos":
         $datos = $usuario->get_cursos_por_usuario($_POST["usu_id"]); //guardamo en una variable el resultado de la base de datos
@@ -322,4 +324,11 @@ switch ($_GET["op"]) {                    //pasamos la variable
                         );
                 echo json_encode($results);
                             break; 
-            }
+            
+            
+            
+
+                            case "guardar_desde_excel":
+                                $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pas"],$_POST["usu_sex"],$_POST["usu_tel"],$_POST["usu_rol"],$_POST["usu_dni"]);
+                                break;
+                        }
