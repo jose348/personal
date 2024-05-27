@@ -94,10 +94,12 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
 
 
 
-<div class="form-group">
+<div class="form-group ">
   <input type="text" class="form-control" placeholder="Correo" id="correo" name="correo">
+ 
 </div><!-- form-group -->
 <div class="form-group">
+  
   <input type="password" class="form-control" placeholder="Contraseña" id="pass" name="pass">
   <a href="" class="tx-info tx-12 d-block mg-t-10">Informacion sobre Nosotros</a>
 </div><!-- form-group --> 
